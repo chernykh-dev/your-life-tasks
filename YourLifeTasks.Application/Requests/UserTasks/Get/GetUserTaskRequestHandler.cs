@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using MediatR;
 using YourLifeTasks.Domain.Entities;
 using YourLifeTasks.Domain.Repositories;
