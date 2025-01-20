@@ -1,6 +1,6 @@
 ﻿namespace YourLifeTasks.Infrastructure.Db;
 
-public class DbMedator(TasksDbContext dbContext)
+public class DbMediator(TasksDbContext dbContext)
 {
     public async Task SaveChanges(CancellationToken cancellationToken)
     {

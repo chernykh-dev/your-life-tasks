@@ -2,25 +2,22 @@
 
 namespace YourLifeTasks.Domain.Entities;
 
-public class UserTask
+public class UserTasksGroup
 {
     public required Guid Id { get; set; }
 
-    public required string Title { get; set; } = null!;
+    public required string Title { get; set; }
 
     public string? Description { get; set; }
-
-    public bool Completed { get; set; } = false;
 
     public required DateTimeOffset CreatedAt { get; set; }
 
     [JsonIgnore]
-    public virtual UserTasksGroup UserTasksGroup { get; set; }
+    public virtual List<UserTask> UserTasks { get; set; }
 
-    public void Update(string title, string? description, bool completed)
+    public void Update(string title, string? description)
     {
         Title = title;
         Description = description;
-        Completed = completed;
     }
 }

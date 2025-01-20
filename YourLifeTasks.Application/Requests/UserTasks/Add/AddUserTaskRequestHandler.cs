@@ -5,20 +5,33 @@ using YourLifeTasks.Infrastructure.Db;
 
 namespace YourLifeTasks.Application.Requests.UserTasks.Add;
 
-public class AddUserTaskRequestHandler(IUserTaskRepository userTaskRepository, DbMedator dbMedator) : IRequestHandler<AddUserTaskRequest, Guid>
+public class AddUserTaskRequestHandler(
+    IUserTaskRepository userTaskRepository,
+    IUserTasksGroupRepository userTasksGroupRepository,
+    DbMediator dbMediator
+) : IRequestHandler<AddUserTaskRequest, Guid>
 {
     public async Task<Guid> Handle(AddUserTaskRequest request, CancellationToken cancellationToken)
     {
+        var userTasksGroup = await userTasksGroupRepository.GetById(request.UserTasksGroupId);
+
+        if (userTasksGroup == null)
+        {
+            throw new Exception("");
+        }
+
         var userTask = new UserTask
         {
             Id = Guid.NewGuid(),
+            Title = request.Title,
             Description = request.Description,
-            CreatedAt = DateTimeOffset.UtcNow
+            CreatedAt = DateTimeOffset.UtcNow,
+            UserTasksGroup = userTasksGroup
         };
 
-        userTaskRepository.Add(userTask);
+        await userTaskRepository.Add(userTask);
 
-        await dbMedator.SaveChanges(cancellationToken);
+        await dbMediator.SaveChanges(cancellationToken);
 
         return userTask.Id;
     }

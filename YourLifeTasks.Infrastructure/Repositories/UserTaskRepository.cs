@@ -17,7 +17,7 @@ public class UserTaskRepository(TasksDbContext dbContext) : IUserTaskRepository
         return entities;
     }
 
-    public async Task<UserTask> GetById(Guid id)
+    public async Task<UserTask?> GetById(Guid id)
     {
         var entity = await dbContext
             .UserTasks
@@ -25,6 +25,18 @@ public class UserTaskRepository(TasksDbContext dbContext) : IUserTaskRepository
 
         return entity;
     }
+
+    public async Task<UserTask?> GetWithGroupByIdReadOnly(Guid id)
+    {
+        var entity = await dbContext
+            .UserTasks
+            .Include(x => x.UserTasksGroup)
+            .AsNoTracking()
+            .FirstOrDefaultAsync(x => x.Id == id);
+
+        return entity;
+    }
+
 
     public async Task Add(UserTask userTask)
     {

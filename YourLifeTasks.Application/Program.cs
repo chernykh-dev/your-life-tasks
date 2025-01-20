@@ -1,4 +1,7 @@
 using System.Reflection;
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using YourLifeTasks.Application.Configuration.AutoMapper;
 using YourLifeTasks.Domain.Repositories;
 using YourLifeTasks.Infrastructure.Db;
 using YourLifeTasks.Infrastructure.Repositories;
@@ -17,12 +20,16 @@ builder.Services.AddCors(x =>
     );
 });
 
+
+builder.Services.AddAutoMapper(typeof(AppMappingProfile));
+
 builder.Services.AddMediatR(x => x.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
 builder.Services.AddDbContext<TasksDbContext>();
-builder.Services.AddScoped<DbMedator>();
+builder.Services.AddScoped<DbMediator>();
 
 builder.Services.AddScoped<IUserTaskRepository, UserTaskRepository>();
+builder.Services.AddScoped<IUserTasksGroupRepository, UserTaskGroupRepository>();
 
 
 var app = builder.Build();
@@ -33,6 +40,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+using var scope = app.Services.CreateScope();
+await scope.ServiceProvider.GetRequiredService<TasksDbContext>().Database.MigrateAsync();
 
 app.UseCors("all");
 

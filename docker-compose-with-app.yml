@@ -1,4 +1,13 @@
 ﻿services:
+  yourlifetasks.application:
+    image: yourlifetasks.application
+    ports:
+      - 8080:8080
+    build:
+      context: .
+      dockerfile: YourLifeTasks.Application/Dockerfile
+    depends_on:
+      - db
   db:
     image: postgres
     ports:

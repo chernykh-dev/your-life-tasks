@@ -6,7 +6,9 @@ public interface IUserTaskRepository
 {
     Task<List<UserTask>> GetAllReadOnly();
 
-    Task<UserTask> GetById(Guid id);
+    Task<UserTask?> GetById(Guid id);
+
+    Task<UserTask?> GetWithGroupByIdReadOnly(Guid id);
 
     Task Add(UserTask userTask);
 

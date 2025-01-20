@@ -1,6 +1,3 @@
 @YourLifeTasks.Application_HostAddress = http://localhost:5249
 
-GET {{YourLifeTasks.Application_HostAddress}}/weatherforecast/
-Accept: application/json
-
 ###

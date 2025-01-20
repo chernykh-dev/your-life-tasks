@@ -2,4 +2,4 @@
 
 namespace YourLifeTasks.Application.Requests.UserTasks.GetAll;
 
-public record GetAllUserTasksRequest : IRequest<GetAllUserTasksResponse>;
+public record GetAllUserTasksRequest : IRequest<UserTasksListResponse>;

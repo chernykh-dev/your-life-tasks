@@ -9,9 +9,11 @@ public class TasksDbContext : DbContext
 {
     public DbSet<UserTask> UserTasks { get; set; }
 
+    public DbSet<UserTasksGroup> UserTasksGroups { get; set; }
+
     public TasksDbContext()
     {
-        Database.EnsureCreated();
+
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
