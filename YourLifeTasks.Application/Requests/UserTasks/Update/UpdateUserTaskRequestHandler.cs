@@ -12,10 +12,10 @@ public class UpdateUserTaskRequestHandler(IUserTaskRepository userTaskRepository
 
         if (userTask == null)
         {
-            throw new Exception("");
+            throw new Exception("User task not found");
         }
 
-        userTask.Update(request.Title, request.Description, request.Completed);
+        userTask.Update(request.Title, request.Description, request.Completed, request.Priority);
 
         await dbMediator.SaveChanges(cancellationToken);
 

@@ -26,6 +26,7 @@ public class AddUserTaskRequestHandler(
             Title = request.Title,
             Description = request.Description,
             CreatedAt = DateTimeOffset.UtcNow,
+            Priority = request.Priority,
             UserTasksGroup = userTasksGroup
         };
 

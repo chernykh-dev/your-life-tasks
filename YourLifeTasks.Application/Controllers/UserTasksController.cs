@@ -8,6 +8,7 @@ using YourLifeTasks.Application.Requests.UserTasks.Get;
 using YourLifeTasks.Application.Requests.UserTasks.GetAll;
 using YourLifeTasks.Application.Requests.UserTasks.GetAllOnGroup;
 using YourLifeTasks.Application.Requests.UserTasks.Move;
+using YourLifeTasks.Application.Requests.UserTasks.Update;
 using YourLifeTasks.Application.Requests.UserTasksGroups.Update;
 using YourLifeTasks.Domain.Entities;
 using YourLifeTasks.Domain.Repositories;
@@ -53,7 +54,7 @@ public class UserTasksController(IMediator mediator) : ControllerBase
     }
 
     [HttpPut("userTasks/{id:guid}")]
-    public async Task<ActionResult<Guid>> Update([FromRoute] Guid id, [FromBody] UpdateUserTasksGroupRequest request,
+    public async Task<ActionResult<Guid>> Update([FromRoute] Guid id, [FromBody] UpdateUserTaskRequest request,
         CancellationToken cancellationToken)
     {
         var result = await mediator.Send(request.WithId(id), cancellationToken);

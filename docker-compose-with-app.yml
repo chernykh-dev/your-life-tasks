@@ -7,13 +7,25 @@
       context: .
       dockerfile: YourLifeTasks.Application/Dockerfile
     depends_on:
-      - db
+      db:
+        condition: service_healthy
+    environment:
+      DbSettings__Server: db
+      DbSettings__Username: postgres
+      DbSettings__Password: postgres
+      DbSettings__Database: your-life-tasks-db
   db:
     image: postgres
     ports:
       - 5432:5432
     environment:
-      POSTGRES_USER: chernykhav
-      POSTGRES_PASSWORD: chernykhav
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
       POSTGRES_DB: your-life-tasks-db
     restart: always
+    user: postgres
+    healthcheck:
+      test: [ "CMD", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5

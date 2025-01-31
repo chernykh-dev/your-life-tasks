@@ -1,25 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using YourLifeTasks.Domain.Entities;
 
 namespace YourLifeTasks.Infrastructure.Db;
 
-public class TasksDbContext : DbContext
+public class TasksDbContext(DbContextOptions options) : DbContext(options)
 {
     public DbSet<UserTask> UserTasks { get; set; }
 
     public DbSet<UserTasksGroup> UserTasksGroups { get; set; }
 
-    public TasksDbContext()
-    {
-
-    }
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder
-            .UseNpgsql("Server=localhost;Database=your-life-tasks-db;Username=chernykhav;Password=chernykhav")
             .UseSnakeCaseNamingConvention();
     }
 }

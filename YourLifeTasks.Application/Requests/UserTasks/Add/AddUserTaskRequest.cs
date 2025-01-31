@@ -6,7 +6,8 @@ namespace YourLifeTasks.Application.Requests.UserTasks.Add;
 
 public record AddUserTaskRequest(
     string Title,
-    string? Description
+    string? Description,
+    double Priority
 ) : IRequest<Guid>
 {
     [JsonIgnore]

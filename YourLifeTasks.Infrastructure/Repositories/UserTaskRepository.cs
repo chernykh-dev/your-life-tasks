@@ -37,6 +37,20 @@ public class UserTaskRepository(TasksDbContext dbContext) : IUserTaskRepository
         return entity;
     }
 
+    public async Task<List<UserTask>> GetAllSortedByPriorityByGroupIdReadOnly(Guid groupId)
+    {
+        var entities = await dbContext
+            .UserTasks
+            .Include(x => x.UserTasksGroup)
+            .Where(x => x.UserTasksGroup.Id == groupId)
+            .OrderBy(x => !x.Completed)
+            .ThenBy(x => x.Priority)
+            .AsNoTracking()
+            .ToListAsync();
+
+        return entities;
+    }
+
 
     public async Task Add(UserTask userTask)
     {

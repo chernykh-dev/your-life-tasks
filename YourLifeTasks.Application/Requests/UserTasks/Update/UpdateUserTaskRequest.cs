@@ -6,7 +6,8 @@ namespace YourLifeTasks.Application.Requests.UserTasks.Update;
 public record UpdateUserTaskRequest(
     string Title,
     string? Description,
-    bool Completed
+    bool Completed,
+    double Priority
 ) : IRequest<Guid>
 {
     [JsonIgnore]

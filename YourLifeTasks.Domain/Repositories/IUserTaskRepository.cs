@@ -10,6 +10,8 @@ public interface IUserTaskRepository
 
     Task<UserTask?> GetWithGroupByIdReadOnly(Guid id);
 
+    Task<List<UserTask>> GetAllSortedByPriorityByGroupIdReadOnly(Guid groupId);
+
     Task Add(UserTask userTask);
 
     Task Delete(UserTask userTask);
